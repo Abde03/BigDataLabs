@@ -1,100 +1,57 @@
 # Lab1 - Programmation avec l’API HDFS
 
-## 🎯 Objectif du TP
-L’objectif de ce laboratoire est de découvrir la programmation avec l’API **HDFS (Hadoop Distributed File System)** à travers trois programmes Java :
-
-1. **HadoopFileStatus** : obtenir des informations sur un fichier stocké sur HDFS et le renommer.  
-2. **ReadHDFS** : lire et afficher le contenu d’un fichier sur HDFS.  
-3. **WriteHDFS** : créer et écrire un fichier sur HDFS.
+## 🎯 Objectif
+Ce TP a pour but de se familiariser avec la programmation Java utilisant l’API HDFS de Hadoop.  
+Les objectifs sont :
+- Accéder au système de fichiers HDFS.
+- Lire et écrire des fichiers sur HDFS.
+- Manipuler les métadonnées d’un fichier (taille, propriétaire, permissions, etc.).
 
 ---
 
 ## 🧱 Structure du projet
-Lab1/
-├── pom.xml
-├── src/
-│    └── main/java/edu/supmti/hadoop/
-│          ├── HadoopFileStatus.java
-│          ├── ReadHDFS.java
-│          └── WriteHDFS.java
-├── target/
-│    ├── HadoopFileStatus.jar
-│    ├── ReadHDFS.jar
-│    └── WriteHDFS.jar
-└── README.md
+Trois classes Java ont été développées dans un projet Maven :
+
+| Classe | Fonctionnalité principale |
+|---------|---------------------------|
+| **HadoopFileStatus** | Affiche les informations d’un fichier HDFS et le renomme. |
+| **ReadHDFS** | Lit et affiche le contenu d’un fichier sur HDFS. |
+| **WriteHDFS** | Crée et écrit un nouveau fichier sur HDFS. |
 
 ---
 
-## ⚙️ Compilation et génération des JARs
+## ⚙️ Commandes d’exécution
 
-Le projet est configuré avec **Maven**.  
-Chaque classe principale peut être packagée en JAR à l’aide de la commande :
+Depuis le conteneur `hadoop-master` :
+
+### 1️⃣ HadoopFileStatus
 
 ```bash
-mvn clean package
-```
-Les fichiers JAR générés se trouvent dans le dossier target/.
-
-🚀 Exécution sur Hadoop
-Les fichiers JAR doivent être placés dans le répertoire partagé du conteneur Hadoop
-(ex. /shared_volume), puis exécutés à l’intérieur du conteneur hadoop-master.
-1️⃣ Informations et renommage de fichier (HadoopFileStatus)
 hadoop jar /shared_volume/HadoopFileStatus.jar /user/root/input purchases.txt achats.txt
+```
 
-2️⃣ Lecture d’un fichier (ReadHDFS)
+### 2️⃣ ReadHDFS
+```bash
 hadoop jar /shared_volume/ReadHDFS.jar /user/root/input/achats.txt
+```
 
-3️⃣ Écriture d’un fichier (WriteHDFS)
+### 3️⃣ WriteHDFS
+```bash
 hadoop jar /shared_volume/WriteHDFS.jar /user/root/input/bonjour.txt "Bonjour tout le monde !"
+```
 
-
-📊 Résultats attendus
-Exemple de sortie pour HadoopFileStatus
-2549 bytes
+### 📊 Exemple de sortie
 File Name: purchases.txt
-File Size: 2549
-File owner: root
-File permission: rw-r--r--
-File Replication: 2
-File Block Size: 134217728
-Block offset: 0
-Block length: 2549
+File Size: 2549 bytes
+Owner: root
+Permission: rw-r--r--
+Replication: 2
 Block hosts: hadoop-slave1 hadoop-slave2
 
-Exemple de sortie pour ReadHDFS
-Le contenu du fichier HDFS est affiché ligne par ligne.
-Exemple de sortie pour WriteHDFS
-File written: /user/root/input/bonjour.txt
+### 🧠 Conclusion
 
+Ce premier TP a permis de :
 
-📘 Conclusion
-Ce laboratoire démontre comment :
-
-
-Interagir avec le système de fichiers distribué HDFS via l’API Java.
-
-
-Configurer un projet Maven Hadoop.
-
-
-Lire, écrire et manipuler des fichiers sur HDFS.
-
-
-Exécuter des programmes Java sur un cluster Hadoop dans Docker.
-
-
-
-🗂️ Commandes utiles
-# Lister les fichiers sur HDFS
-hdfs dfs -ls /user/root/input
-
-# Lire un fichier sur HDFS
-hdfs dfs -cat /user/root/input/achats.txt
-
-# Supprimer un fichier sur HDFS
-hdfs dfs -rm /user/root/input/bonjour.txt
-
-
----
-
-Would you like me to make you a **second version of the README** that’s shorter (1-page summary format) — useful if you need to print or submit it as part of a report?
+ - Mettre en place un projet Java Maven pour Hadoop.
+ - Manipuler HDFS via les classes FileSystem, FileStatus, et FSDataStream.
+ - Comprendre le fonctionnement des blocs, de la réplication et de la configuration Hadoop.
